@@ -127,7 +127,7 @@ public class Main extends JFrame implements ActionListener {
                     || jButton.getText().equals("5") || jButton.getText().equals("6")
                     || jButton.getText().equals("7") || jButton.getText().equals("8")
                     || jButton.getText().equals("9")) {
-                // init number after opeartor "="
+                // init number after operator "="
                 if(op_num.equals("=")) {
                     first_num = "";
                     second_num = "";
@@ -149,6 +149,40 @@ public class Main extends JFrame implements ActionListener {
                 }
                 result = 0;
                 textField_output.setText(jButton.getText());
+            }
+        }
+        // first input is number
+        else {
+            // second input is operator
+            if (jButton.getText().equals("+") || jButton.getText().equals("-")
+                    || jButton.getText().equals("*") || jButton.getText().equals("/")) {
+                // copy num to first num or second_num
+                if (first_num.length() == 0) first_num = num;
+                else if (second_num.length() == 0) {
+                    second_num = num;
+
+                    if (first_num.length() != 0 && second_num.length() != 0) {
+                        String full_str = first_num + op_num + second_num;
+                        try {
+                            result = operate(full_str);
+                            textField_output.setText(result + "");
+                        } catch (ScriptException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                }
+
+                op_num = jButton.getText();
+                op_str += num + op_num;
+                num = "";
+                textField_input.setText(op_str);
+            } else if (jButton.getText().equals("1") || jButton.getText().equals("2")
+                    || jButton.getText().equals("3") || jButton.getText().equals("4")
+                    || jButton.getText().equals("5") || jButton.getText().equals("6")
+                    || jButton.getText().equals("7") || jButton.getText().equals("8")
+                    || jButton.getText().equals("9")) {
+                num += jButton.getText();
+                textField_output.setText(num);
             }
         }
     }
